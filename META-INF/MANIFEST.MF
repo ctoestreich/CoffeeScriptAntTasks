@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CoffeeScriptAntTask
+Bundle-SymbolicName: CoffeeScriptAntTasks
+Bundle-Version: 1.0.0
+Bundle-Vendor: Patrick Mueller
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.apache.ant;bundle-version="1.7.1"

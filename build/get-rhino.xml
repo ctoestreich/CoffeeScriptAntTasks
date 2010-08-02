@@ -1,0 +1,40 @@
+<!-- 
+ * Copyright (c) 2010 Patrick Mueller
+ * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ -->
+
+<project name="get-rhino" default="get-rhino" basedir="..">
+
+    <!-- ============================================================ -->
+    <property file="build/versions.properties"/>
+    
+    <property name="RHINO-URL" value="http://ftp.mozilla.org/pub/mozilla.org/js/rhino${RHINO-VERSION}.zip"/>
+
+    <!-- ============================================================ -->
+
+    <target name="get-rhino">
+        <delete dir="tmp"/>
+        <mkdir  dir="tmp"/>
+        
+        <get src="${RHINO-URL}" dest="tmp/rhino.zip" verbose="true"/>
+        
+        <unzip src="tmp/rhino.zip" dest="tmp">
+            <patternset>
+                <!-- the list of scripts is in CoffeeScript's Rake file -->
+                <include name="**/js.jar"/>
+                <include name="**/src/**/*"/>
+            </patternset>
+        </unzip>
+        
+        <mkdir  dir="lib"/>
+        <delete file="lib/rhino.jar"/>
+        <delete file="lib/rhino-src.zip"/>
+        
+        <copy file="tmp/rhino${RHINO-VERSION}/js.jar" tofile="lib/rhino.jar" overwrite="true"/>
+        <zip destfile="lib/rhino-src.zip" basedir="tmp/rhino${RHINO-VERSION}/src"/>
+        
+        <delete dir="tmp"/>
+    </target>
+
+    <!-- ============================================================ -->
+</project>

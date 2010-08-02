@@ -1,0 +1,179 @@
+<!-- 
+ * Copyright (c) 2010 Patrick Mueller
+ * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ -->
+
+<project name="test" default="test" basedir="..">
+
+<path id="cp">
+    <pathelement path="bin"/>
+</path>
+
+<taskdef name="JavaScript"    classname="csat.JavaScriptAntTask"           classpathref="cp"/>
+<taskdef name="CoffeeScript"  classname="csat.CoffeeScriptAntTask"         classpathref="cp"/>
+<taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCompilerAntTask" classpathref="cp"/>
+
+<!-- ============================================================== -->
+<target name="test" depends="test-JavaScript,test-CoffeeScript,test-CoffeeScript-compiler"/>
+
+<!-- ============================================================== -->
+<macrodef name="compare-strings">
+    <attribute name = "string1"/>
+    <attribute name = "string2"/>
+    <attribute name = "message" default="the strings are not the same"/>
+    
+    <sequential>
+        <echo message="comparing '@{string1}' and '@{string2}'"/>
+        <condition property="passes" value="true">
+            <equals arg1="@{string1}" arg2="@{string2}"/>
+        </condition>
+        
+        <fail unless="passes" message="@{message}"/>
+    </sequential>
+</macrodef>
+    
+<!-- ============================================================== -->
+<macrodef name="compare-files">
+    <attribute name="file1"/>
+    <attribute name="file2"/>
+    
+    <sequential>
+        <CoffeeScript out="theSame">
+            <arg value="@{file1}"/>
+            <arg value="@{file2}"/>
+            <![CDATA[
+            
+            #---------------------------------------------------------------------
+            importClass java.lang.Character
+            importClass java.lang.StringBuilder
+            importClass java.io.FileReader
+            importClass java.io.File
+            importClass org.apache.tools.ant.BuildException
+            
+            #---------------------------------------------------------------------
+            charArray:(size) -> java.lang.reflect.Array.newInstance(Character.TYPE, size)
+            
+            #---------------------------------------------------------------------
+            readFile:(file) ->
+                fr     = new FileReader file
+                buffer = charArray 256*256
+                result = new StringBuilder()
+            
+                while (read = fr.read buffer) > 0
+                    result.append(buffer,0, read)
+            
+                fr.close()
+            
+                return result.toString()
+                
+            #---------------------------------------------------------------------
+            file1 = new File(task.project.baseDir, argv[0])
+            file2 = new File(task.project.baseDir, argv[1])
+            
+            contents1 = readFile file1
+            contents2 = readFile file2
+            
+            if not contents1.equals contents2
+                throw new BuildException "files do not match: '$file1', '$file2'"
+            
+            ]]>
+        </CoffeeScript>
+    </sequential>
+</macrodef>
+
+<!-- ============================================================== -->
+<target name="test-CoffeeScript-compiler">
+    <delete dir="test/out"/>
+    <mkdir  dir="test/out"/>
+
+    <CoffeeScriptC nowrap="true" destDir="test/out" verbose="true">
+        <include name="test/src/**/*"/>
+    </CoffeeScriptC>
+
+    <compare-files file1="test/expected/test-01.js" file2="test/out/test-01.js"/>
+    <compare-files file1="test/expected/test.02.js" file2="test/out/test.02.js"/>
+    <compare-files file1="test/expected/test-03.js" file2="test/out/test-03.js"/>
+    <compare-files file1="test/expected/test-04.js" file2="test/out/test-04.js"/>
+    
+    <delete dir="test/out"/>
+</target>
+
+<!-- ============================================================== -->
+<target name="test-JavaScript">
+    <JavaScript>
+        stdout.println("stdout: hello, world!")
+        stderr.println("stderr: hello, world!")
+    </JavaScript>
+
+    <JavaScript out="output">
+        x = "the result"
+    </JavaScript>
+    
+    <JavaScript>
+        <arg value="${output}"/>
+        stdout.println("the previous result was '" + argv[0] + "'")
+    </JavaScript>
+    
+    <JavaScript src="test/sample.js" out="output">
+        <arg value="arg #1"/>
+        <arg value="the second arg"/>
+        <arg value="finally, the third arg"/>
+    </JavaScript>
+
+    <JavaScript>
+        stdout.println("one of the previous results was ${output}")
+    </JavaScript>
+    
+    <echo message="the previous result was ${output}"/>
+
+</target>    
+
+<!-- ============================================================== -->
+<target name="test-CoffeeScript">
+    <CoffeeScript>
+        stdout.println "stdout: hello, world!"
+        stderr.println "stderr: hello, world!"
+    </CoffeeScript>
+
+    <CoffeeScript out="output">
+        x: "the result"
+        x
+    </CoffeeScript>
+    
+    <CoffeeScript>
+        <arg value="${output}"/>
+        stdout.println "the previous result was '" + argv[0] + "'"
+    </CoffeeScript>
+    
+    <CoffeeScript src="test/sample.coffee" out="output">
+        <arg value="arg #1"/>
+        <arg value="the second arg"/>
+        <arg value="finally, the third arg"/>
+    </CoffeeScript>
+
+    <echo message="the previous result was ${output}"/>
+</target>
+    
+<!-- ============================================================== -->
+<target name="test-JavaScriptError-01">
+    <JavaScript>
+        /* */
+//        this ] is [ a ) syntax ( error
+        for for for end end end
+        function a() {throw new Error("hoo ha")}
+        function b() {a()}
+        b()
+        x = 1
+    </JavaScript>
+</target>
+    
+<!-- ============================================================== -->
+<target name="test-CoffeeScriptError-01">
+    <CoffeeScript>
+        #
+        this ] is [ a ) syntax ( error
+    </CoffeeScript>
+</target>
+
+<!-- ============================================================== -->
+</project>

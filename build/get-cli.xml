@@ -1,0 +1,38 @@
+<!-- 
+ * Copyright (c) 2010 Patrick Mueller
+ * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ -->
+
+<project name="get-cli" default="get-cli" basedir="..">
+
+    <!-- ============================================================ -->
+    <property file="build/versions.properties" />
+
+    <property name="CLI-URL" value="http://www.apache.org/dist/commons/cli/binaries/commons-cli-${CLI-VERSION}-bin.zip" />
+
+    <!-- ============================================================ -->
+
+    <target name="get-cli">
+        <delete dir="tmp"/>
+        <mkdir  dir="tmp"/>
+        
+        <get src="${CLI-URL}" dest="tmp/commons-cli.zip" verbose="true" />
+        
+        <unzip src="tmp/commons-cli.zip" dest="tmp">
+            <mapper type="flatten"/>
+            <patternset>
+                <include name="commons-cli-${CLI-VERSION}/commons-cli-${CLI-VERSION}-sources.jar"/>
+                <include name="commons-cli-${CLI-VERSION}/commons-cli-${CLI-VERSION}.jar"/>
+            </patternset>
+        </unzip>
+        
+        <mkdir  dir="lib" />
+        
+        <copy file="tmp/commons-cli-${CLI-VERSION}.jar"         tofile="lib/apache-commons-cli.jar" overwrite="true"/>
+        <copy file="tmp/commons-cli-${CLI-VERSION}-sources.jar" tofile="lib/apache-commons-cli-src.zip" overwrite="true"/>
+        
+        <delete dir="tmp"/>
+    </target>
+
+    <!-- ============================================================ -->
+</project>

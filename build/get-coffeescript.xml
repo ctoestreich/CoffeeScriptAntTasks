@@ -1,0 +1,47 @@
+<!-- 
+ * Copyright (c) 2010 Patrick Mueller
+ * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ -->
+
+<project name="get-coffeescript" default="get-coffeescript" basedir="..">
+
+    <!-- ============================================================ -->
+    <property file="build/versions.properties"/>
+
+    <property name="COFFEESCRIPT-URL"     value="http://github.com/jashkenas/coffee-script/tarball/${COFFEESCRIPT-VERSION}"/>
+    
+    <target name="get-coffeescript">
+        <delete dir="tmp"/>
+        <mkdir  dir="tmp"/>
+
+        <get src="${COFFEESCRIPT-URL}" dest="tmp/coffee-script.tar.gz" verbose="true" />
+        
+        <untar src="tmp/coffee-script.tar.gz" dest="tmp" compression="gzip">
+            <mapper type="flatten"/>
+            <patternset>
+                <!-- the list of scripts is in CoffeeScript's Rake file -->
+                <include name="**/lib/helpers.js"/>
+                <include name="**/lib/rewriter.js"/>
+                <include name="**/lib/lexer.js"/>
+                <include name="**/lib/parser.js"/>
+                <include name="**/lib/scope.js"/>
+                <include name="**/lib/nodes.js"/>
+                <include name="**/lib/coffee-script.js"/>                
+            </patternset>
+        </untar>
+        
+        <concat destfile="src/csat/coffee-script.js">
+            <fileset file="tmp/helpers.js"/>
+            <fileset file="tmp/rewriter.js"/>
+            <fileset file="tmp/lexer.js"/>
+            <fileset file="tmp/parser.js"/>
+            <fileset file="tmp/scope.js"/>
+            <fileset file="tmp/nodes.js"/>
+            <fileset file="tmp/coffee-script.js"/>                
+        </concat>
+        
+        <delete dir="tmp"/>
+    </target>
+
+    <!-- ============================================================ -->
+</project>

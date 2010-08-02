@@ -1,0 +1,6 @@
+bin
+.settings
+
+tmp
+lib/*
+test/out

@@ -1,0 +1,17 @@
+<!-- 
+ * Copyright (c) 2010 Patrick Mueller
+ * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ -->
+
+<project name="build-jar" default="build" basedir=".">
+
+    <!-- ============================================================ -->
+
+    <property name="CSAT-VERSION" value="0.1.0"/>
+    <property name="CSAT-JAR"     value="csat.jar"/>
+    
+    <target name="build">
+    </target>
+
+    <!-- ============================================================ -->
+</project>

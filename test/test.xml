@@ -5,13 +5,10 @@
 
 <project name="test" default="test" basedir="..">
 
-<path id="cp">
-    <pathelement path="bin"/>
-</path>
-
-<taskdef name="JavaScript"    classname="csat.JavaScriptAntTask"           classpathref="cp"/>
-<taskdef name="CoffeeScript"  classname="csat.CoffeeScriptAntTask"         classpathref="cp"/>
-<taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCompilerAntTask" classpathref="cp"/>
+<path id="cp"><pathelement path="bin"/></path>
+<taskdef name="JavaScript"    classname="csat.JavaScriptTask"    classpathref="cp"/>
+<taskdef name="CoffeeScript"  classname="csat.CoffeeScriptTask"  classpathref="cp"/>
+<taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCTask" classpathref="cp"/>
 
 <!-- ============================================================== -->
 <target name="test" depends="test-JavaScript,test-CoffeeScript,test-CoffeeScript-compiler"/>

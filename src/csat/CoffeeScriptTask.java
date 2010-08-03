@@ -14,7 +14,7 @@ import org.apache.tools.ant.BuildException;
 /**
  * 
  */
-public class CoffeeScriptAntTask extends JavaScriptAntTask {
+public class CoffeeScriptTask extends JavaScriptTask {
 
     static private final boolean DEBUG = false;
 
@@ -23,7 +23,7 @@ public class CoffeeScriptAntTask extends JavaScriptAntTask {
     /**
      * 
      */
-    public CoffeeScriptAntTask() {
+    public CoffeeScriptTask() {
         super();
         
         compileOptions = new HashMap<String, Object>();

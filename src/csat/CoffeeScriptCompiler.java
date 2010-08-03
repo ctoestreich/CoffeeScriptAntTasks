@@ -39,7 +39,7 @@ public class CoffeeScriptCompiler {
      * 
      */
     static private String getCoffeeScriptSource() {
-        InputStream iStream = JavaScriptAntTask.class.getResourceAsStream("coffee-script.js");
+        InputStream iStream = JavaScriptTask.class.getResourceAsStream("coffee-script.js");
         Reader isReader = new InputStreamReader(iStream);
         
         try {

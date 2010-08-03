@@ -3,14 +3,42 @@
  * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  -->
 
-<project name="build-jar" default="build" basedir=".">
+<project name="build-jar" default="build-jar" basedir="..">
 
     <!-- ============================================================ -->
+    <!-- ============================================================ -->
+    <property file="src/csat/versions.properties"/>
 
-    <property name="CSAT-VERSION" value="0.1.0"/>
     <property name="CSAT-JAR"     value="csat.jar"/>
     
-    <target name="build">
+    <target name="build-jar">
+        
+        <delete dir="tmp"/>
+        <mkdir  dir="tmp"/>
+
+        <unzip src="lib/rhino.jar" dest="tmp">
+        </unzip>
+        
+        <unzip src="lib/apache-commons-cli.jar" dest="tmp">
+        </unzip>
+
+        <copy todir="tmp">
+            <fileset dir="bin"/>            
+        </copy>
+        
+        <delete dir="tmp/META-INF"/>
+
+        <copy todir="tmp">
+            <fileset dir="jar-template"/>            
+        </copy>
+
+        <delete dir="build/out"/>
+        <mkdir  dir="build/out"/>
+
+        <zip destfile="build/out/csat-${CSAT-VERSION}.jar" basedir="tmp">
+        </zip>
+            
+        <delete dir="tmp"/>
     </target>
 
     <!-- ============================================================ -->

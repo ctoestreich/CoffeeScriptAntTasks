@@ -1,0 +1,24 @@
+<!-- 
+ * Copyright (c) 2010 Patrick Mueller
+ * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ -->
+
+<project name="test-no-taskdef" default="test-no-taskdef" basedir="..">
+
+<property file="src/csat/versions.properties"/>
+
+<path id="cp"><pathelement path="build/out/csat-${CSAT-VERSION}.jar"/></path>
+<taskdef name="JavaScript"    classname="csat.JavaScriptTask"    classpathref="cp"/>
+<taskdef name="CoffeeScript"  classname="csat.CoffeeScriptTask"  classpathref="cp"/>
+<taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCTask" classpathref="cp"/>
+
+<!-- ============================================================== -->
+<target name="test-no-taskdef">
+    <CoffeeScript>
+        stdout.println "stdout: hello, world!"
+        stderr.println "stderr: hello, world!"
+    </CoffeeScript>
+</target>
+
+<!-- ============================================================== -->
+</project>

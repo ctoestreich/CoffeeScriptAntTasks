@@ -23,7 +23,7 @@ import csat.JavaScriptRunner.Result;
 /**
  * 
  */
-public class JavaScriptAntTask extends Task {
+public class JavaScriptTask extends Task {
     private File      iFile;
     private String    taskText;
     private String    outProperty;
@@ -32,7 +32,7 @@ public class JavaScriptAntTask extends Task {
     /**
      * 
      */
-    public JavaScriptAntTask() {
+    public JavaScriptTask() {
         super();
 
         argsList = new ArrayList<Arg>();

@@ -21,7 +21,7 @@ import org.apache.tools.ant.types.resources.FileResource;
 /**
  * 
  */
-public class CoffeeScriptCompilerAntTask extends MatchingTask {
+public class CoffeeScriptCTask extends MatchingTask {
     static private final Pattern NoExtPattern = Pattern.compile("(.*)\\..*");
 
     private boolean noWrap;
@@ -31,7 +31,7 @@ public class CoffeeScriptCompilerAntTask extends MatchingTask {
     /**
      * 
      */
-    public CoffeeScriptCompilerAntTask() {
+    public CoffeeScriptCTask() {
         super();
         
         noWrap  = false;

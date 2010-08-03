@@ -4,3 +4,4 @@ bin
 tmp
 lib/*
 test/out
+build/out

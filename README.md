@@ -1,18 +1,12 @@
-csat - CoffeeScript Ant Tasks
+CoffeeScript Ant Tasks
 =============================
 
 This project contains Ant tasks to run CoffeeScript from 
 Ant, and compile CoffeeScript files to JavaScript.  It uses
 Rhino as the underlying JavaScript engine.
 
-Installing
-----------
-
-I'm working on it.
-
-
 Examples
-----------
+========
 
 The example below writes a line to stdout and a line to stderr.
 
@@ -55,11 +49,12 @@ This example compiles CoffeeScript into JavaScript.
 
 
 Running
-----------
+=======
 
 Three Ant tasks are included:
 
-### `JavaScript` ###
+`JavaScript`
+------------
 
 Runs JavaScript code.
 
@@ -93,12 +88,14 @@ set:
 * `__FILE__` - set to the name of the script
 * `task` - set to the Ant task that is being run
 
-### `CoffeeScript` ###
+`CoffeeScript`
+--------------
 
 Exactly the same as the `JavaScript` task, only the source is
 treated as CoffeeScript instead of JavaScript.
 
-### `CoffeeScriptC` ###
+`CoffeeScriptC`
+---------------
 
 Compiles CoffeeScript source to JavaScript.
 
@@ -122,9 +119,62 @@ of the input file is completely stripped off, and a `".js"` suffix
 is added to create the base name.  Those files are all written 
 to the `destDir` directory.
 
+Installing 
+==========
+
+You can run the jar file from the command line to print some
+installation help and version information.
+
+        java -jar csat.jar
+
+for usage in Eclipse
+--------------------
+
+* Download a <tt>csat-{version}.jar</tt> file from 
+[http://github.com/pmuellr/CoffeeScriptAntTasks/downloads]()
+
+* Add it to a project in your Eclipse workspace
+
+* For any Ant scripts you would like to use the tasks in, add
+the following lines:
+
+        <path id="cp"><pathelement path="build/out/csat-version.jar"/></path>
+        <taskdef name="JavaScript"    classname="csat.JavaScriptTask"    classpathref="cp"/>
+        <taskdef name="CoffeeScript"  classname="csat.CoffeeScriptTask"  classpathref="cp"/>
+        <taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCTask" classpathref="cp"/>
+
+for usage not in Eclipse
+------------------------
+
+Pretty much same as the Eclipse instructions, just don't use Eclipse.
 
 Building
-----------
+========
 
-I'm working on it.
+To rebuild this jar: 
 
+* checkout the project at github as an Eclipse project
+
+* run the <tt>build/get-libs.xml</tt> Ant script to load
+the required external code
+
+* refresh the project
+
+* update <tt>src/csat/versions.properties</tt> to give
+<tt>CSAT-VERSION</tt> a new version label
+
+* run the <tt>build/build-jar.xml</tt> Ant script to build 
+the jar
+
+Repository
+==========
+
+[http://github.com/pmuellr/CoffeeScriptAntTasks]()
+
+ChangeLog
+=========
+
+0.1.1 - 2010/08/03
+------------------
+
+Initial buildable version

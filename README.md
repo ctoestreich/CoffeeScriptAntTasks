@@ -61,23 +61,23 @@ Runs JavaScript code.
 The `JavaScript` task supports the following attributes:
 
 * `src` - the name of a file that contains the JavaScript code
-to run
+  to run
 
 * `out` - the name of a property to place the output of running
-the JavaScript code in.  The result of the JavaScript code is
-converted to a string and then placed in the property.
+  the JavaScript code in.  The result of the JavaScript code is
+  converted to a string and then placed in the property.
 
-Instead of running a file of JavaScript code, you can place the
-JavaScript code in the task as text instead.  JavaScript code
-embedded directly in the task will **NOT** have typical Ant property
-substitution done on it.
+  Instead of running a file of JavaScript code, you can place the
+  JavaScript code in the task as text instead.  JavaScript code
+  embedded directly in the task will **NOT** have typical Ant property
+  substitution done on it.
 
 The `JavaScript` task supports the following nested elements:
 
 * `<arg>` - contains an argument to pass to the JavaScript
-code.  May be used multiple times.  Must contain an attribute
-named `value` which is the value to pass to the JavaScript code.
-(Note this is similar to the `Exec` task)
+  code.  May be used multiple times.  Must contain an attribute
+  named `value` which is the value to pass to the JavaScript code.
+  (Note this is similar to the `Exec` task)
 
 When the JavaScript code runs, the following variables will be
 set:
@@ -102,13 +102,13 @@ Compiles CoffeeScript source to JavaScript.
 The `CoffeeScript` task supports the following attributes:
 
 * `destDir` - the output directory for the JavaScript files.
-If not specified, uses the "basedir" of the Ant project.
+  If not specified, uses the "basedir" of the Ant project.
 
 * `noWrap` - sets the "noWrap" compile option of the CoffeeScript
-compiler.  Setting to `true` will cause the function wrapper
-around the output to **not** be generated.  The default is `false`,
-which will cause the function wrapper to be generated.
-(yeah, I hate negative option names too, prolly will change this)
+  compiler.  Setting to `true` will cause the function wrapper
+  around the output to **not** be generated.  The default is `false`,
+  which will cause the function wrapper to be generated.
+  (yeah, I hate negative option names too, prolly will change this)
 
 * `verbose` - prints a message to the console for every file processed.
 
@@ -131,12 +131,12 @@ for usage in Eclipse
 --------------------
 
 * Download a <tt>csat-{version}.jar</tt> file from 
-[http://github.com/pmuellr/CoffeeScriptAntTasks/downloads]()
+  [http://github.com/pmuellr/CoffeeScriptAntTasks/downloads]()
 
 * Add it to a project in your Eclipse workspace
 
 * For any Ant scripts you would like to use the tasks in, add
-the following lines:
+  the following lines:
 
         <path id="cp"><pathelement path="build/out/csat-version.jar"/></path>
         <taskdef name="JavaScript"    classname="csat.JavaScriptTask"    classpathref="cp"/>
@@ -156,15 +156,15 @@ To rebuild this jar:
 * checkout the project at github as an Eclipse project
 
 * run the <tt>build/get-libs.xml</tt> Ant script to load
-the required external code
+  the required external code
 
 * refresh the project
 
 * update <tt>src/csat/versions.properties</tt> to give
-<tt>CSAT-VERSION</tt> a new version label
+  <tt>CSAT-VERSION</tt> a new version label
 
 * run the <tt>build/build-jar.xml</tt> Ant script to build 
-the jar
+  the jar
 
 Repository
 ==========

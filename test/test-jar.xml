@@ -14,6 +14,8 @@
 
 <!-- ============================================================== -->
 <target name="test-no-taskdef">
+    <java fork="true" jar="build/out/csat-${CSAT-VERSION}.jar"/>
+    
     <CoffeeScript>
         stdout.println "stdout: hello, world!"
         stderr.println "stderr: hello, world!"

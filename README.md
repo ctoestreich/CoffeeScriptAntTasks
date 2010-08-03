@@ -131,14 +131,14 @@ for usage in Eclipse
 --------------------
 
 * Download a <tt>csat-{version}.jar</tt> file from 
-  [http://github.com/pmuellr/CoffeeScriptAntTasks/downloads]()
+  [http://github.com/pmuellr/CoffeeScriptAntTasks/downloads](http://github.com/pmuellr/CoffeeScriptAntTasks/downloads)
 
 * Add it to a project in your Eclipse workspace
 
 * For any Ant scripts you would like to use the tasks in, add
   the following lines:
 
-        <path id="cp"><pathelement path="build/out/csat-version.jar"/></path>
+        <path id="cp"><pathelement path="lib/csat.jar"/></path>
         <taskdef name="JavaScript"    classname="csat.JavaScriptTask"    classpathref="cp"/>
         <taskdef name="CoffeeScript"  classname="csat.CoffeeScriptTask"  classpathref="cp"/>
         <taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCTask" classpathref="cp"/>
@@ -169,7 +169,8 @@ To rebuild this jar:
 Repository
 ==========
 
-[http://github.com/pmuellr/CoffeeScriptAntTasks]()
+[http://github.com/pmuellr/CoffeeScriptAntTasks](http://github.com/pmuellr/CoffeeScriptAntTasks)
+
 
 ChangeLog
 =========

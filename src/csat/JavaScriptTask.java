@@ -26,7 +26,7 @@ import csat.JavaScriptRunner.Result;
 public class JavaScriptTask extends Task {
     private File      iFile;
     private String    taskText;
-    private String    outProperty;
+    private String    resultProperty;
     private List<Arg> argsList;
 
     /**
@@ -48,8 +48,8 @@ public class JavaScriptTask extends Task {
     /**
      * 
      */
-    public void setOut(String value) {
-        outProperty = value;
+    public void setResult(String value) {
+        resultProperty = value;
     }
 
     /**
@@ -128,8 +128,8 @@ public class JavaScriptTask extends Task {
             processException(result.jsException);
         }
 
-        if ((null != outProperty) && (null != result)) {
-            getProject().setProperty(outProperty, result.resultString);
+        if ((null != resultProperty) && (null != result)) {
+            getProject().setProperty(resultProperty, result.resultString);
         }
 
     }

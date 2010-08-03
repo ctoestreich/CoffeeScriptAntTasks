@@ -35,7 +35,7 @@
     <attribute name="file2"/>
     
     <sequential>
-        <CoffeeScript out="theSame">
+        <CoffeeScript result="theSame">
             <arg value="@{file1}"/>
             <arg value="@{file2}"/>
             <![CDATA[
@@ -102,26 +102,22 @@
         stderr.println("stderr: hello, world!")
     </JavaScript>
 
-    <JavaScript out="output">
-        x = "the result"
+    <JavaScript result="theResult">
+        "the result"
     </JavaScript>
     
     <JavaScript>
-        <arg value="${output}"/>
+        <arg value="${theResult}"/>
         stdout.println("the previous result was '" + argv[0] + "'")
     </JavaScript>
     
-    <JavaScript src="test/sample.js" out="output">
+    <JavaScript src="test/sample.js" result="theResult2">
         <arg value="arg #1"/>
         <arg value="the second arg"/>
         <arg value="finally, the third arg"/>
     </JavaScript>
 
-    <JavaScript>
-        stdout.println("one of the previous results was ${output}")
-    </JavaScript>
-    
-    <echo message="the previous result was ${output}"/>
+    <echo message="the previous result was '${theResult2}'"/>
 
 </target>    
 
@@ -132,23 +128,22 @@
         stderr.println "stderr: hello, world!"
     </CoffeeScript>
 
-    <CoffeeScript out="output">
-        x: "the result"
-        x
+    <CoffeeScript result="theResult">
+        "the result"
     </CoffeeScript>
     
     <CoffeeScript>
-        <arg value="${output}"/>
-        stdout.println "the previous result was '" + argv[0] + "'"
+        <arg value="${theResult}"/>
+        stdout.println "the previous result was '${argv[0]}'"
     </CoffeeScript>
     
-    <CoffeeScript src="test/sample.coffee" out="output">
+    <CoffeeScript src="test/sample.coffee" result="theResult2">
         <arg value="arg #1"/>
         <arg value="the second arg"/>
         <arg value="finally, the third arg"/>
     </CoffeeScript>
 
-    <echo message="the previous result was ${output}"/>
+    <echo message="the previous result was '${theResult2}'"/>
 </target>
     
 <!-- ============================================================== -->

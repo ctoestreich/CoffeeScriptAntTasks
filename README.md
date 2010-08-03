@@ -1,9 +1,10 @@
 CoffeeScript Ant Tasks
 =============================
 
-This project contains Ant tasks to run CoffeeScript from 
-Ant, and compile CoffeeScript files to JavaScript.  It uses
-Rhino as the underlying JavaScript engine.
+This project contains Ant tasks to run 
+[CoffeeScript](http://jashkenas.github.com/coffee-script/) 
+from Ant, and compile CoffeeScript files to JavaScript.  
+It uses Rhino as the underlying JavaScript engine.
 
 Examples
 ========
@@ -15,31 +16,45 @@ The example below writes a line to stdout and a line to stderr.
             stderr.println "stderr: hello, world!"
         </CoffeeScript>
 
-The example below will set the property `output` to the
-value `"the result"`
+The example below will set the property `theResult` to the
+string `"the result"`
 
-        <CoffeeScript out="output">
-            x: "the result"
-            x
+        <CoffeeScript result="theResult">
+            "the result"
         </CoffeeScript>
-        
 
 When run after the previous command, this example will
 print the value of previous output.
 
         <CoffeeScript>
-            <arg value="${output}"/>
-            stdout.println "the previous result was '" + argv[0] + "'"
+            <arg value="${theResult}"/>
+            stdout.println "the previous result was '${argv[0]}'"
         </CoffeeScript>
 
 
 Here's an example that runs CoffeeScript stored in a file.
 
-        <CoffeeScript src="test/sample.coffee" out="output">
+        <CoffeeScript src="test/sample.coffee" result="theResult2">
             <arg value="arg #1"/>
             <arg value="the second arg"/>
             <arg value="finally, the third arg"/>
         </CoffeeScript>
+
+Here's some example CoffeeScript that could be stored in that file:
+
+        result: []
+        
+        stdout.println "in $__FILE__"
+        stdout.println "argv.length: ${argv.length}"
+        
+        result: for i in [0...argv.length]
+            stdout.println "argv[${i}]: ${argv[i]}"
+            argv[i]
+        
+        result: result.join ", "
+        stdout.println "the result from running in the script is '${result}'"
+        
+        result
 
 This example compiles CoffeeScript into JavaScript.
 
@@ -63,24 +78,23 @@ The `JavaScript` task supports the following attributes:
 * `src` - the name of a file that contains the JavaScript code
   to run
 
-* `out` - the name of a property to place the output of running
-  the JavaScript code in.  The result of the JavaScript code is
-  converted to a string and then placed in the property.
-
   Instead of running a file of JavaScript code, you can place the
   JavaScript code in the task as text instead.  JavaScript code
   embedded directly in the task will **NOT** have typical Ant property
   substitution done on it.
+
+* `result` - the name of a property to place the result of running
+  the JavaScript code in.  The result of the JavaScript code is
+  converted to a string and then placed in the property.
 
 The `JavaScript` task supports the following nested elements:
 
 * `<arg>` - contains an argument to pass to the JavaScript
   code.  May be used multiple times.  Must contain an attribute
   named `value` which is the value to pass to the JavaScript code.
-  (Note this is similar to the `Exec` task)
+  Note that this is similar to the `Exec` task.
 
-When the JavaScript code runs, the following variables will be
-set:
+When the JavaScript code runs, the following variables will be set:
 
 * `argv` - an array of the values set by the `<arg>` elements
 * `stdout` - set to `System.out`
@@ -171,11 +185,22 @@ Repository
 
 [http://github.com/pmuellr/CoffeeScriptAntTasks](http://github.com/pmuellr/CoffeeScriptAntTasks)
 
+License
+=======
+
+MIT license: [http://www.opensource.org/licenses/mit-license.php](http://www.opensource.org/licenses/mit-license.php)
 
 ChangeLog
 =========
 
+0.1.2 - ongoing
+------------------
+- README fixes
+- change the old `out` attribute of the `JavaScript` and `CoffeeScript`
+  taks to `result`
+
+
 0.1.1 - 2010/08/03
 ------------------
 
-Initial buildable version
+- initial buildable version

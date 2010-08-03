@@ -1,13 +1,13 @@
+/*
+ * Copyright (c) 2010 Patrick Mueller
+ * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ */
+
 package csat;
 
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Properties;
-
-/*
- * Copyright (c) 2010 Patrick Mueller
- * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- */
 
 /**
  * 

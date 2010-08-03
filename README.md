@@ -193,7 +193,7 @@ MIT license: [http://www.opensource.org/licenses/mit-license.php](http://www.ope
 ChangeLog
 =========
 
-0.1.2 - ongoing
+0.1.2 - 2010/08/03
 ------------------
 - README fixes
 - change the old `out` attribute of the `JavaScript` and `CoffeeScript`

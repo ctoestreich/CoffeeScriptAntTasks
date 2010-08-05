@@ -19,6 +19,7 @@
     <antcall target="test-JavaScript-util"/>
     <antcall target="test-CoffeeScript"/>
     <antcall target="test-CoffeeScript-compiler"/>
+    <antcall target="test-JavaScript-JSON"/>
 
     <delete dir="test/out"/>
 </target>
@@ -89,6 +90,13 @@
     </CoffeeScript>
 
     <echo message="the previous result was '${theResult2}'"/>
+</target>
+
+<!-- ============================================================== -->
+<target name="test-JavaScript-JSON">
+    <JavaScript>
+        stdout.println(JSON.stringify(JSON.parse("[1,2,3]"),null,4))
+    </JavaScript>
 </target>
 
 <!-- ============================================================== -->

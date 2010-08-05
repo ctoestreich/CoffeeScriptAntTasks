@@ -210,6 +210,10 @@ MIT license: [http://www.opensource.org/licenses/mit-license.php](http://www.ope
 ChangeLog
 =========
 
+0.1.4 - 2010/08/05
+------------------
+- add a JSON object, since this version of Rhino doesn't have one
+
 0.1.3 - 2010/08/05
 ------------------
 - make the util object available to scripts with some i/o functions

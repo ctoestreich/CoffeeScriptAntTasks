@@ -5,10 +5,15 @@
 
 package csat;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.tools.ant.util.optional.JavaxScriptRunner;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.EvaluatorException;
 import org.mozilla.javascript.ImporterTopLevel;
@@ -21,6 +26,8 @@ import org.mozilla.javascript.ScriptableObject;
  */
 public class JavaScriptRunner {
 
+    private static final String JSONsrc = getJSONsrc();
+    
     private String             source;
     private String             sourceURL;
     private String[]           args;
@@ -41,6 +48,23 @@ public class JavaScriptRunner {
         return new JavaScriptRunner(source, sourceURL, args, properties, prototype).run();
     }
 
+    /**
+     * 
+     */
+    static private String getJSONsrc() {
+        InputStream iStream = JavaScriptRunner.class.getResourceAsStream("json2.js");
+        Reader isReader = new InputStreamReader(iStream);
+        
+        try {
+            String result = Util.readStream(isReader, 8096);
+            isReader.close();
+            return result;
+        }
+        catch (IOException e) {
+            throw new RuntimeException("error reading json2.js resource", e);
+        }
+    }
+    
     /**
      * 
      */
@@ -84,6 +108,7 @@ public class JavaScriptRunner {
             if (null == sourceURL) sourceURL  = "<unnamed>";
             
             try {
+                context.evaluateString(scope, JSONsrc, "json2.js", 1, null);
                 result.result = context.evaluateString(scope, source, sourceURL, 1, null);
             }
             catch (RuntimeException e) {

@@ -35,7 +35,7 @@ public class Main {
         os.println("versions:");
         os.println("   CoffeeScriptAntTasks: " + versions.getProperty("CSAT-VERSION"));
         os.println("   CoffeeScript:         " + versions.getProperty("COFFEESCRIPT-VERSION"));
-        os.println("   Rhino:RHINO-VERSION:  " + versions.getProperty("RHINO-VERSION"));
+        os.println("   Rhino:                " + versions.getProperty("RHINO-VERSION"));
         os.println("   Apache Commons CLI:   " + versions.getProperty("CLI-VERSION"));
         os.println("");
         os.println("home:");

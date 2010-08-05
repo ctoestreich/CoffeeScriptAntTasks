@@ -210,6 +210,12 @@ MIT license: [http://www.opensource.org/licenses/mit-license.php](http://www.ope
 ChangeLog
 =========
 
+0.1.3 - 2010/08/05
+------------------
+- make the util object available to scripts with some i/o functions
+- fix the location of the versions.properties file in the ant scripts
+- added Rhino's toolsrc to the rhino-src.zip file built
+
 0.1.2 - 2010/08/03
 ------------------
 - README fixes

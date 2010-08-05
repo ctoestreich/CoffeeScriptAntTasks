@@ -6,7 +6,7 @@
 <project name="get-cli" default="get-cli" basedir="..">
 
     <!-- ============================================================ -->
-    <property file="build/versions.properties" />
+    <property file="src/csat/versions.properties"/>
 
     <property name="CLI-URL" value="http://www.apache.org/dist/commons/cli/binaries/commons-cli-${CLI-VERSION}-bin.zip" />
 

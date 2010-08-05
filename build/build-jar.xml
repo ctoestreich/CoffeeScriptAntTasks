@@ -6,11 +6,11 @@
 <project name="build-jar" default="build-jar" basedir="..">
 
     <!-- ============================================================ -->
-    <!-- ============================================================ -->
     <property file="src/csat/versions.properties"/>
 
     <property name="CSAT-JAR"     value="csat.jar"/>
     
+    <!-- ============================================================ -->
     <target name="build-jar">
         
         <delete dir="tmp"/>

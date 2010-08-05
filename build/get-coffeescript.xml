@@ -6,7 +6,7 @@
 <project name="get-coffeescript" default="get-coffeescript" basedir="..">
 
     <!-- ============================================================ -->
-    <property file="build/versions.properties"/>
+    <property file="src/csat/versions.properties"/>
 
     <property name="COFFEESCRIPT-URL"     value="http://github.com/jashkenas/coffee-script/tarball/${COFFEESCRIPT-VERSION}"/>
     

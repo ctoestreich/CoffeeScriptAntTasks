@@ -11,72 +11,17 @@
 <taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCTask" classpathref="cp"/>
 
 <!-- ============================================================== -->
-<target name="test" depends="test-JavaScript,test-CoffeeScript,test-CoffeeScript-compiler"/>
+<target name="test">
+    <delete dir="test/out"/>
+    <mkdir  dir="test/out"/>
+    
+    <antcall target="test-JavaScript"/>
+    <antcall target="test-JavaScript-util"/>
+    <antcall target="test-CoffeeScript"/>
+    <antcall target="test-CoffeeScript-compiler"/>
 
-<!-- ============================================================== -->
-<macrodef name="compare-strings">
-    <attribute name = "string1"/>
-    <attribute name = "string2"/>
-    <attribute name = "message" default="the strings are not the same"/>
-    
-    <sequential>
-        <echo message="comparing '@{string1}' and '@{string2}'"/>
-        <condition property="passes" value="true">
-            <equals arg1="@{string1}" arg2="@{string2}"/>
-        </condition>
-        
-        <fail unless="passes" message="@{message}"/>
-    </sequential>
-</macrodef>
-    
-<!-- ============================================================== -->
-<macrodef name="compare-files">
-    <attribute name="file1"/>
-    <attribute name="file2"/>
-    
-    <sequential>
-        <CoffeeScript result="theSame">
-            <arg value="@{file1}"/>
-            <arg value="@{file2}"/>
-            <![CDATA[
-            
-            #---------------------------------------------------------------------
-            importClass java.lang.Character
-            importClass java.lang.StringBuilder
-            importClass java.io.FileReader
-            importClass java.io.File
-            importClass org.apache.tools.ant.BuildException
-            
-            #---------------------------------------------------------------------
-            charArray:(size) -> java.lang.reflect.Array.newInstance(Character.TYPE, size)
-            
-            #---------------------------------------------------------------------
-            readFile:(file) ->
-                fr     = new FileReader file
-                buffer = charArray 256*256
-                result = new StringBuilder()
-            
-                while (read = fr.read buffer) > 0
-                    result.append(buffer,0, read)
-            
-                fr.close()
-            
-                return result.toString()
-                
-            #---------------------------------------------------------------------
-            file1 = new File(task.project.baseDir, argv[0])
-            file2 = new File(task.project.baseDir, argv[1])
-            
-            contents1 = readFile file1
-            contents2 = readFile file2
-            
-            if not contents1.equals contents2
-                throw new BuildException "files do not match: '$file1', '$file2'"
-            
-            ]]>
-        </CoffeeScript>
-    </sequential>
-</macrodef>
+    <delete dir="test/out"/>
+</target>
 
 <!-- ============================================================== -->
 <target name="test-CoffeeScript-compiler">
@@ -145,7 +90,27 @@
 
     <echo message="the previous result was '${theResult2}'"/>
 </target>
+
+<!-- ============================================================== -->
+<target name="test-JavaScript-util">
+    <loadfile property="contents-loadfile" srcFile="test/test.xml"/>
     
+    <JavaScript result="contents-util">
+        <arg value="${contents-loadfile}"/>
+        // stdout.println(argv[0])
+        util.writeFile("test/out/utl-test-contents", argv[0])
+        util.readFile("test/out/utl-test-contents")
+    </JavaScript>
+    
+    <condition property="util-passed">
+        <equals arg1="${contents-loadfile}" arg2="${contents-util}"/>
+    </condition>
+    
+    <fail unless="util-passed" message="util tests did not pass"/>
+    <echo message="util tests passed"/>
+</target>
+        
+
 <!-- ============================================================== -->
 <target name="test-JavaScriptError-01">
     <JavaScript>
@@ -167,5 +132,70 @@
     </CoffeeScript>
 </target>
 
+    <!-- ============================================================== -->
+    <macrodef name="compare-strings">
+        <attribute name = "string1"/>
+        <attribute name = "string2"/>
+        <attribute name = "message" default="the strings are not the same"/>
+        
+        <sequential>
+            <echo message="comparing '@{string1}' and '@{string2}'"/>
+            <condition property="passes" value="true">
+                <equals arg1="@{string1}" arg2="@{string2}"/>
+            </condition>
+            
+            <fail unless="passes" message="@{message}"/>
+        </sequential>
+    </macrodef>
+        
+    <!-- ============================================================== -->
+    <macrodef name="compare-files">
+        <attribute name="file1"/>
+        <attribute name="file2"/>
+        
+        <sequential>
+            <CoffeeScript result="theSame">
+                <arg value="@{file1}"/>
+                <arg value="@{file2}"/>
+                <![CDATA[
+                
+                #---------------------------------------------------------------------
+                importClass java.lang.Character
+                importClass java.lang.StringBuilder
+                importClass java.io.FileReader
+                importClass java.io.File
+                importClass org.apache.tools.ant.BuildException
+                
+                #---------------------------------------------------------------------
+                charArray:(size) -> java.lang.reflect.Array.newInstance(Character.TYPE, size)
+                
+                #---------------------------------------------------------------------
+                readFile:(file) ->
+                    fr     = new FileReader file
+                    buffer = charArray 256*256
+                    result = new StringBuilder()
+                
+                    while (read = fr.read buffer) > 0
+                        result.append(buffer,0, read)
+                
+                    fr.close()
+                
+                    return result.toString()
+                    
+                #---------------------------------------------------------------------
+                file1 = new File(task.project.baseDir, argv[0])
+                file2 = new File(task.project.baseDir, argv[1])
+                
+                contents1 = readFile file1
+                contents2 = readFile file2
+                
+                if not contents1.equals contents2
+                    throw new BuildException "files do not match: '$file1', '$file2'"
+                
+                ]]>
+            </CoffeeScript>
+        </sequential>
+    </macrodef>
+    
 <!-- ============================================================== -->
 </project>

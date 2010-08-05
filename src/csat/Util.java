@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
 
+import org.apache.tools.ant.Task;
+
 /**
  * 
  */
@@ -21,18 +23,36 @@ public class Util {
     /**
      * 
      */
-    static public void writeFile(String iFileName, String contents) throws IOException {
-        writeFile(new File(iFileName), contents);
+    static public void writeFile(String oFileName, Task task, String contents) throws IOException {
+        File baseDir = task.getProject().getBaseDir();
+        File file    = new File(baseDir, oFileName);
+        writeFile(file, contents);
     }
 
     /**
      * 
      */
-    static public void writeFile(File iFile, String contents) throws IOException {
-        FileWriter fw = new FileWriter(iFile);
+    static public void writeFile(String oFileName, String contents) throws IOException {
+        writeFile(new File(oFileName), contents);
+    }
+
+    /**
+     * 
+     */
+    static public void writeFile(File oFile, String contents) throws IOException {
+        FileWriter fw = new FileWriter(oFile);
         
         fw.write(contents);
         fw.close();
+    }
+
+    /**
+     * 
+     */
+    static public String readFile(String iFileName, Task task) throws IOException {
+        File baseDir = task.getProject().getBaseDir();
+        File file    = new File(baseDir, iFileName);
+        return readFile(file);
     }
 
     /**

@@ -101,6 +101,23 @@ When the JavaScript code runs, the following variables will be set:
 * `stderr` - set to `System.err`
 * `__FILE__` - set to the name of the script
 * `task` - set to the Ant task that is being run
+* `util` - set to an object with some useful methods
+
+### The `util` object ###
+
+When your script runs with the `JavaScript` or `CoffeeScript` tasks,
+an additional object is available to your code in the global property
+name `util`.  This object has the following functions:
+
+* `readFile(fileName)`
+ 
+  This function will read the specified file and return the contents
+  as a string.  The file name is relative to the project's `basedir`.
+
+* `writeFile(fileName, contents)`
+
+  This function will write the specified contents to the specified file.
+  The file name is relative to the project's `basedir`.
 
 `CoffeeScript`
 --------------

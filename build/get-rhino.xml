@@ -6,7 +6,7 @@
 <project name="get-rhino" default="get-rhino" basedir="..">
 
     <!-- ============================================================ -->
-    <property file="build/versions.properties"/>
+    <property file="src/csat/versions.properties"/>
     
     <property name="RHINO-URL" value="http://ftp.mozilla.org/pub/mozilla.org/js/rhino${RHINO-VERSION}.zip"/>
 
@@ -23,6 +23,7 @@
                 <!-- the list of scripts is in CoffeeScript's Rake file -->
                 <include name="**/js.jar"/>
                 <include name="**/src/**/*"/>
+                <include name="**/toolsrc/**/*"/>
             </patternset>
         </unzip>
         
@@ -31,7 +32,10 @@
         <delete file="lib/rhino-src.zip"/>
         
         <copy file="tmp/rhino${RHINO-VERSION}/js.jar" tofile="lib/rhino.jar" overwrite="true"/>
-        <zip destfile="lib/rhino-src.zip" basedir="tmp/rhino${RHINO-VERSION}/src"/>
+        <zip destfile="lib/rhino-src.zip">
+            <zipfileset dir="tmp/rhino${RHINO-VERSION}/src"/>
+            <zipfileset dir="tmp/rhino${RHINO-VERSION}/toolsrc"/>
+        </zip>
         
         <delete dir="tmp"/>
     </target>

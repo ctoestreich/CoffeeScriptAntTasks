@@ -6,6 +6,7 @@
 package csat;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -66,6 +67,8 @@ public class Util {
      * 
      */
     static public String readFile(File iFile) throws IOException {
+        if (!iFile.exists()) throw new FileNotFoundException("file not found: " + iFile.getAbsolutePath());
+        
         long iFileLength = iFile.length();
         
         if (0 == iFileLength) return "";

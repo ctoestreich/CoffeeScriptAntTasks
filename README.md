@@ -210,6 +210,11 @@ MIT license: [http://www.opensource.org/licenses/mit-license.php](http://www.ope
 ChangeLog
 =========
 
+0.1.5 - 2010/08/06
+------------------
+- util.readFile() was returning an empty string for non-existant files, now throws exception
+
+
 0.1.4 - 2010/08/05
 ------------------
 - add a JSON object, since this version of Rhino doesn't have one

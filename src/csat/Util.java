@@ -13,23 +13,12 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
 
-import org.apache.tools.ant.Task;
-
 /**
  * 
  */
 public class Util {
     static private final int DEFAULT_BUFFER_SIZE = 256 * 256 - 400; 
     
-    /**
-     * 
-     */
-    static public void writeFile(String oFileName, Task task, String contents) throws IOException {
-        File baseDir = task.getProject().getBaseDir();
-        File file    = new File(baseDir, oFileName);
-        writeFile(file, contents);
-    }
-
     /**
      * 
      */
@@ -45,15 +34,6 @@ public class Util {
         
         fw.write(contents);
         fw.close();
-    }
-
-    /**
-     * 
-     */
-    static public String readFile(String iFileName, Task task) throws IOException {
-        File baseDir = task.getProject().getBaseDir();
-        File file    = new File(baseDir, iFileName);
-        return readFile(file);
     }
 
     /**

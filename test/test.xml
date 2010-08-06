@@ -80,7 +80,7 @@
     
     <CoffeeScript>
         <arg value="${theResult}"/>
-        stdout.println "the previous result was '${argv[0]}'"
+        stdout.println "the previous result was '#{argv[0]}'"
     </CoffeeScript>
     
     <CoffeeScript src="test/sample.coffee" result="theResult2">
@@ -104,10 +104,11 @@
     <loadfile property="contents-loadfile" srcFile="test/test.xml"/>
     
     <JavaScript result="contents-util">
+        <arg value="${basedir}/test/out/utl-test-contents"/>
         <arg value="${contents-loadfile}"/>
         // stdout.println(argv[0])
-        util.writeFile("test/out/utl-test-contents", argv[0])
-        util.readFile("test/out/utl-test-contents")
+        util.writeFile(argv[0], argv[1])
+        util.readFile(argv[0])
     </JavaScript>
     
     <condition property="util-passed">
@@ -162,45 +163,9 @@
         <attribute name="file2"/>
         
         <sequential>
-            <CoffeeScript result="theSame">
+            <CoffeeScript src="test/compare-files.coffee" result="theSame">
                 <arg value="@{file1}"/>
                 <arg value="@{file2}"/>
-                <![CDATA[
-                
-                #---------------------------------------------------------------------
-                importClass java.lang.Character
-                importClass java.lang.StringBuilder
-                importClass java.io.FileReader
-                importClass java.io.File
-                importClass org.apache.tools.ant.BuildException
-                
-                #---------------------------------------------------------------------
-                charArray:(size) -> java.lang.reflect.Array.newInstance(Character.TYPE, size)
-                
-                #---------------------------------------------------------------------
-                readFile:(file) ->
-                    fr     = new FileReader file
-                    buffer = charArray 256*256
-                    result = new StringBuilder()
-                
-                    while (read = fr.read buffer) > 0
-                        result.append(buffer,0, read)
-                
-                    fr.close()
-                
-                    return result.toString()
-                    
-                #---------------------------------------------------------------------
-                file1 = new File(task.project.baseDir, argv[0])
-                file2 = new File(task.project.baseDir, argv[1])
-                
-                contents1 = readFile file1
-                contents2 = readFile file2
-                
-                if not contents1.equals contents2
-                    throw new BuildException "files do not match: '$file1', '$file2'"
-                
-                ]]>
             </CoffeeScript>
         </sequential>
     </macrodef>

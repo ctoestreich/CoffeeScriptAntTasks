@@ -213,6 +213,8 @@ ChangeLog
 0.1.5 - 2010/08/06
 ------------------
 - util.readFile() was returning an empty string for non-existant files, now throws exception
+- util.readFile() and writeFile() no longer take into account the task's basedir
+- upgrade to CoffeeScript 0.9.0
 
 
 0.1.4 - 2010/08/05

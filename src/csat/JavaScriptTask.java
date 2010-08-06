@@ -116,7 +116,7 @@ public class JavaScriptTask extends Task {
 
         Map<String, Object> properties = new HashMap<String, Object>();
         properties.put("task", this);
-        properties.put("util", new JSUtil(this));
+        properties.put("util", new JSUtil());
 
         Result result = JavaScriptRunner.run(source, iFileName, args, properties);
 

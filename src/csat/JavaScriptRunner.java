@@ -29,21 +29,21 @@ public class JavaScriptRunner {
     
     private String             source;
     private String             sourceURL;
-    private String[]           args;
+    private Object[]           args;
     private Map<String,Object> properties;
     private ScriptableObject   prototype;
 
     /**
      * 
      */
-    static public Result run(String source, String sourceURL, String[] args, Map<String,Object> properties) {
+    static public Result run(String source, String sourceURL, Object[] args, Map<String,Object> properties) {
         return run(source, sourceURL, args, properties, null);
     }
 
     /**
      * 
      */
-    static public Result run(String source, String sourceURL, String[] args, Map<String,Object> properties, ScriptableObject prototype) {
+    static public Result run(String source, String sourceURL, Object[] args, Map<String,Object> properties, ScriptableObject prototype) {
         return new JavaScriptRunner(source, sourceURL, args, properties, prototype).run();
     }
 
@@ -67,7 +67,7 @@ public class JavaScriptRunner {
     /**
      * 
      */
-    private JavaScriptRunner(String source, String sourceURL, String[] args, Map<String,Object> properties, ScriptableObject prototype ) {
+    private JavaScriptRunner(String source, String sourceURL, Object[] args, Map<String,Object> properties, ScriptableObject prototype ) {
         super();
         
         if (null == source) throw new RuntimeException("source was not set");

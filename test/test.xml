@@ -65,6 +65,13 @@
 
     <echo message="the previous result was '${theResult2}'"/>
 
+    <JavaScript src="test/sample.js">
+        <arg type="file" value="."/>
+        <arg type="file" value="test"/>
+        <arg type="file" value="test/test.xml"/>
+        <arg type="file" value="test/test.xml-doesn't-exist"/>
+    </JavaScript>
+
 </target>    
 
 <!-- ============================================================== -->

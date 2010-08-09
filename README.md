@@ -92,7 +92,13 @@ The `JavaScript` task supports the following nested elements:
 * `<arg>` - contains an argument to pass to the JavaScript
   code.  May be used multiple times.  Must contain an attribute
   named `value` which is the value to pass to the JavaScript code.
-  Note that this is similar to the `Exec` task.
+  Note that this is similar to the `Exec` task.  
+  
+  An `<arg>` element may specify an attribute named `type` whose
+  value is `file`, in which case the argument is passed to 
+  JavaScript as a `java.io.File` object.  The `value` attribute
+  should contain a file name relative to the Project's `basedir`
+  attribute. 
 
 When the JavaScript code runs, the following variables will be set:
 
@@ -212,10 +218,11 @@ ChangeLog
 
 0.1.5 - 2010/08/06
 ------------------
-- util.readFile() was returning an empty string for non-existant files, now throws exception
-- util.readFile() and writeFile() no longer take into account the task's basedir
+- `util.readFile()` was returning an empty string for non-existant files, now throws exception
+- `util.readFile()` and `writeFile()` no longer take into account the task's basedir
 - upgrade to CoffeeScript 0.9.0
-
+- add `type` attribute to the `<arg>` element for `JavaScript` and `CoffeeScript` to 
+  support passing Project basedir-resolved files into scripts.
 
 0.1.4 - 2010/08/05
 ------------------

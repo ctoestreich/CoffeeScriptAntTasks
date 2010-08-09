@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.apache.tools.ant.types.resources.FileResource;
 import org.mozilla.javascript.JavaScriptException;
 import org.mozilla.javascript.NativeJavaObject;
 import org.mozilla.javascript.RhinoException;
@@ -66,7 +68,7 @@ public class JavaScriptTask extends Task {
      * Adds a command-line argument.
      */
     public Arg createArg() {
-        Arg arg = new Arg();
+        Arg arg = new Arg(getProject());
 
         argsList.add(arg);
 
@@ -103,9 +105,22 @@ public class JavaScriptTask extends Task {
      * 
      */
     public void execute() {
+        try {
+            executeWrapped();
+        }
+        catch (RuntimeException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    
+    /**
+     * 
+     */
+    private void executeWrapped() {
         String source = getSource();
 
-        String[] args = new String[argsList.size()];
+        Object[] args = new Object[argsList.size()];
         for (int i = 0; i < args.length; i++) {
             args[i] = argsList.get(i).getValue();
         }
@@ -179,19 +194,49 @@ public class JavaScriptTask extends Task {
      * maps to the arg element in the ant task
      */
     public static class Arg {
-        private String arg;
+        private enum Type { STRING, FILE };
+        
+        private Project project;
+        private String  value;
+        private Type    type;
 
-        public Arg() {
+        public Arg(Project project) {
             super();
+            
+            this.project = project;
+            this.type    = Type.STRING; 
         }
 
         public void setValue(String value) {
-            arg = value;
+            this.value = value;
         }
 
-        public String getValue() {
-            return arg;
+        public void setType(String type) {
+            try {
+                this.type = Type.valueOf(type.toUpperCase());
+            }
+            catch (IllegalArgumentException e) {
+                throw new BuildException("the type attribute value may only be 'file' or 'string'");
+            }
         }
+
+        public Object getValue() {
+            switch(this.type) {
+                case STRING: return getStringValue();
+                case FILE:   return getFileValue();
+            }
+            
+            throw new BuildException("whoops! don't know how to handle " + this.type + " args");
+        }
+        
+        public String getStringValue() {
+            return value;
+        }
+        
+        public File getFileValue() {
+            return new FileResource(project, value).getFile();
+        }
+        
     }
 
 }

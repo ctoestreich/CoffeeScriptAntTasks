@@ -1,0 +1,19 @@
+
+<project name="compile" default="compile" basedir="..">
+
+    <path id="classpath">
+        <fileset dir="lib" includes="**/*.jar"/>
+    </path>
+
+    <target name="compile">
+        <mkdir dir="bin"/>
+
+        <javac srcdir="src" destdir="bin" classpathref="classpath" />
+
+        <copyfile src="src/csat/coffee-script.js" dest="bin/csat/coffee-script.js" forceoverwrite="true" />
+        <copyfile src="src/csat/json2.js" dest="bin/csat/json2.js" forceoverwrite="true" />
+        <copyfile src="src/csat/versions.properties" dest="bin/csat/versions.properties" forceoverwrite="true" />
+
+    </target>
+
+</project>

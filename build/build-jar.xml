@@ -13,7 +13,7 @@
     <!-- ============================================================ -->
     <target name="build-jar">
         
-        <delete dir="tmp"/>
+        <delete dir="tmp" failonerror="false"/>
         <mkdir  dir="tmp"/>
 
         <unzip src="lib/rhino.jar" dest="tmp">

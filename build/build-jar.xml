@@ -53,6 +53,10 @@
 
         <mkdir  dir="build/out"/>
         <zip destfile="build/out/csat-${CSAT-VERSION}.jar" basedir="tmp" />
+
+        <copy todir="downloads">
+            <fileset dir="build/out" includes="csat-${CSAT-VERSION}.jar" />
+        </copy>
             
         <delete dir="tmp"/>
     </target>

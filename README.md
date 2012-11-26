@@ -229,6 +229,7 @@ ChangeLog
 - Updated to CoffeeScript 1.4.0
 - Changed Task for `CoffeeScriptC` to inherit Task instead of MatchingTask so we can
   add a boolean flag to inherit directory nesting.  The new flag is called `nesting`.
+- Changed `noWrap` to the new `bare` param for coffee-script compiler.
 
 0.1.5 - 2010/08/06
 ------------------

@@ -2,53 +2,55 @@
  * Copyright (c) 2010 Patrick Mueller
  * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  -->
-
-
 <project name="test" default="test" basedir="..">
 
-<path id="cp"><pathelement path="build/out/csat-0.1.6.jar"/></path>
+    <import file="${basedir}/build/build-jar.xml"/>
 
-<taskdef name="JavaScript"    classname="csat.JavaScriptTask"    classpathref="cp"/>
-<taskdef name="CoffeeScript"  classname="csat.CoffeeScriptTask"  classpathref="cp"/>
-<taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCTask" classpathref="cp"/>
+    <path id="cp">
+        <pathelement path="build/out/csat-0.1.6.jar"/>
+    </path>
 
-<!-- ============================================================== -->
-<target name="test">
-    <delete dir="test/out"/>
-    <mkdir  dir="test/out"/>
-    
-    <antcall target="test-JavaScript"/>
-    <antcall target="test-JavaScript-util"/>
-    <antcall target="test-CoffeeScript"/>
-    <antcall target="test-CoffeeScript-compiler"/>
-    <antcall target="test-CoffeeScript-compiler-nesting"/>
-    <antcall target="test-JavaScript-JSON"/>
+    <taskdef name="JavaScript" classname="csat.JavaScriptTask" classpathref="cp"/>
+    <taskdef name="CoffeeScript" classname="csat.CoffeeScriptTask" classpathref="cp"/>
+    <taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCTask" classpathref="cp"/>
 
-    <delete dir="test/out"/>
-</target>
+    <!-- ============================================================== -->
+    <target name="test" depends="build-jar.build-jar">
+        <delete dir="test/out"/>
+        <mkdir dir="test/out"/>
 
-<!-- ============================================================== -->
-<target name="test-CoffeeScript-compiler-nesting">
-    <delete dir="test/out"/>
-    <mkdir  dir="test/out"/>
+        <antcall target="test-JavaScript"/>
+        <antcall target="test-JavaScript-util"/>
+        <antcall target="test-CoffeeScript"/>
+        <antcall target="test-CoffeeScript-compiler"/>
+        <antcall target="test-CoffeeScript-compiler-nesting"/>
+        <antcall target="test-JavaScript-JSON"/>
 
-    <CoffeeScriptC nowrap="true" destDir="test/out" verbose="true" nesting="true">
-        <fileset dir="test/src" includes="**/*" />
-    </CoffeeScriptC>
+        <delete dir="test/out"/>
+    </target>
 
-    <compare-files file1="test/expected/test-01.js" file2="test/out/test-01.js"/>
-    <compare-files file1="test/expected/test.02.js" file2="test/out/test.02.js"/>
-    <compare-files file1="test/expected/test-03.js" file2="test/out/test-03.js"/>
-    <compare-files file1="test/expected/test-04.js" file2="test/out/sub/test-04.js"/>
-</target>
+    <!-- ============================================================== -->
+    <target name="test-CoffeeScript-compiler-nesting">
+        <delete dir="test/out"/>
+        <mkdir dir="test/out"/>
+
+        <CoffeeScriptC nowrap="true" destDir="test/out" verbose="true" nesting="true">
+            <fileset dir="test/src" includes="**/*"/>
+        </CoffeeScriptC>
+
+        <compare-files file1="test/expected/test-01.js" file2="test/out/test-01.js"/>
+        <compare-files file1="test/expected/test.02.js" file2="test/out/test.02.js"/>
+        <compare-files file1="test/expected/test-03.js" file2="test/out/test-03.js"/>
+        <compare-files file1="test/expected/test-04.js" file2="test/out/sub/test-04.js"/>
+    </target>
 
 
     <target name="test-CoffeeScript-compiler">
         <delete dir="test/out"/>
-        <mkdir  dir="test/out"/>
+        <mkdir dir="test/out"/>
 
         <CoffeeScriptC nowrap="true" destDir="test/out" verbose="true" nesting="false">
-            <fileset dir="test/src" includes="**/*" />
+            <fileset dir="test/src" includes="**/*"/>
         </CoffeeScriptC>
 
         <compare-files file1="test/expected/test-01.js" file2="test/out/test-01.js"/>
@@ -57,134 +59,134 @@
         <compare-files file1="test/expected/test-04.js" file2="test/out/test-04.js"/>
     </target>
 
-<!-- ============================================================== -->
-<target name="test-JavaScript">
-    <JavaScript>
-        stdout.println("stdout: hello, world!")
-        stderr.println("stderr: hello, world!")
-    </JavaScript>
+    <!-- ============================================================== -->
+    <target name="test-JavaScript">
+        <JavaScript>
+            stdout.println("stdout: hello, world!")
+            stderr.println("stderr: hello, world!")
+        </JavaScript>
 
-    <JavaScript result="theResult">
-        "the result"
-    </JavaScript>
-    
-    <JavaScript>
-        <arg value="${theResult}"/>
-        stdout.println("the previous result was '" + argv[0] + "'")
-    </JavaScript>
-    
-    <JavaScript src="test/sample.js" result="theResult2">
-        <arg value="arg #1"/>
-        <arg value="the second arg"/>
-        <arg value="finally, the third arg"/>
-    </JavaScript>
+        <JavaScript result="theResult">
+            "the result"
+        </JavaScript>
 
-    <echo message="the previous result was '${theResult2}'"/>
+        <JavaScript>
+            <arg value="${theResult}"/>
+            stdout.println("the previous result was '" + argv[0] + "'")
+        </JavaScript>
 
-    <JavaScript src="test/sample.js">
-        <arg type="file" value="."/>
-        <arg type="file" value="test"/>
-        <arg type="file" value="test/test.xml"/>
-        <arg type="file" value="test/test.xml-doesn't-exist"/>
-    </JavaScript>
+        <JavaScript src="test/sample.js" result="theResult2">
+            <arg value="arg #1"/>
+            <arg value="the second arg"/>
+            <arg value="finally, the third arg"/>
+        </JavaScript>
 
-</target>    
+        <echo message="the previous result was '${theResult2}'"/>
 
-<!-- ============================================================== -->
-<target name="test-CoffeeScript">
-    <CoffeeScript>
-        stdout.println "stdout: hello, world!"
-        stderr.println "stderr: hello, world!"
-    </CoffeeScript>
+        <JavaScript src="test/sample.js">
+            <arg type="file" value="."/>
+            <arg type="file" value="test"/>
+            <arg type="file" value="test/test.xml"/>
+            <arg type="file" value="test/test.xml-doesn't-exist"/>
+        </JavaScript>
 
-    <CoffeeScript result="theResult">
-        "the result"
-    </CoffeeScript>
-    
-    <CoffeeScript>
-        <arg value="${theResult}"/>
-        stdout.println "the previous result was '#{argv[0]}'"
-    </CoffeeScript>
-    
-    <CoffeeScript src="test/sample.coffee" result="theResult2">
-        <arg value="arg #1"/>
-        <arg value="the second arg"/>
-        <arg value="finally, the third arg"/>
-    </CoffeeScript>
+    </target>
 
-    <echo message="the previous result was '${theResult2}'"/>
-</target>
+    <!-- ============================================================== -->
+    <target name="test-CoffeeScript">
+        <CoffeeScript>
+            stdout.println "stdout: hello, world!"
+            stderr.println "stderr: hello, world!"
+        </CoffeeScript>
 
-<!-- ============================================================== -->
-<target name="test-JavaScript-JSON">
-    <JavaScript>
-        stdout.println(JSON.stringify(JSON.parse("[1,2,3]"),null,4))
-    </JavaScript>
-</target>
+        <CoffeeScript result="theResult">
+            "the result"
+        </CoffeeScript>
 
-<!-- ============================================================== -->
-<target name="test-JavaScript-util">
-    <loadfile property="contents-loadfile" srcFile="test/test.xml"/>
-    
-    <JavaScript result="contents-util">
-        <arg value="${basedir}/test/out/utl-test-contents"/>
-        <arg value="${contents-loadfile}"/>
-        // stdout.println(argv[0])
-        util.writeFile(argv[0], argv[1])
-        util.readFile(argv[0])
-    </JavaScript>
-    
-    <condition property="util-passed">
-        <equals arg1="${contents-loadfile}" arg2="${contents-util}"/>
-    </condition>
-    
-    <fail unless="util-passed" message="util tests did not pass"/>
-    <echo message="util tests passed"/>
-</target>
-        
+        <CoffeeScript>
+            <arg value="${theResult}"/>
+            stdout.println "the previous result was '#{argv[0]}'"
+        </CoffeeScript>
 
-<!-- ============================================================== -->
-<target name="test-JavaScriptError-01">
-    <JavaScript>
-        /* */
-//        this ] is [ a ) syntax ( error
-        for for for end end end
-        function a() {throw new Error("hoo ha")}
-        function b() {a()}
-        b()
-        x = 1
-    </JavaScript>
-</target>
-    
-<!-- ============================================================== -->
-<target name="test-CoffeeScriptError-01">
-    <CoffeeScript>
-        #
-        this ] is [ a ) syntax ( error
-    </CoffeeScript>
-</target>
+        <CoffeeScript src="test/sample.coffee" result="theResult2">
+            <arg value="arg #1"/>
+            <arg value="the second arg"/>
+            <arg value="finally, the third arg"/>
+        </CoffeeScript>
+
+        <echo message="the previous result was '${theResult2}'"/>
+    </target>
+
+    <!-- ============================================================== -->
+    <target name="test-JavaScript-JSON">
+        <JavaScript>
+            stdout.println(JSON.stringify(JSON.parse("[1,2,3]"),null,4))
+        </JavaScript>
+    </target>
+
+    <!-- ============================================================== -->
+    <target name="test-JavaScript-util">
+        <loadfile property="contents-loadfile" srcFile="test/test.xml"/>
+
+        <JavaScript result="contents-util">
+            <arg value="${basedir}/test/out/utl-test-contents"/>
+            <arg value="${contents-loadfile}"/>
+            // stdout.println(argv[0])
+            util.writeFile(argv[0], argv[1])
+            util.readFile(argv[0])
+        </JavaScript>
+
+        <condition property="util-passed">
+            <equals arg1="${contents-loadfile}" arg2="${contents-util}"/>
+        </condition>
+
+        <fail unless="util-passed" message="util tests did not pass"/>
+        <echo message="util tests passed"/>
+    </target>
+
+
+    <!-- ============================================================== -->
+    <target name="test-JavaScriptError-01">
+        <JavaScript>
+            /* */
+            // this ] is [ a ) syntax ( error
+            for for for end end end
+            function a() {throw new Error("hoo ha")}
+            function b() {a()}
+            b()
+            x = 1
+        </JavaScript>
+    </target>
+
+    <!-- ============================================================== -->
+    <target name="test-CoffeeScriptError-01">
+        <CoffeeScript>
+            #
+            this ] is [ a ) syntax ( error
+        </CoffeeScript>
+    </target>
 
     <!-- ============================================================== -->
     <macrodef name="compare-strings">
-        <attribute name = "string1"/>
-        <attribute name = "string2"/>
-        <attribute name = "message" default="the strings are not the same"/>
-        
+        <attribute name="string1"/>
+        <attribute name="string2"/>
+        <attribute name="message" default="the strings are not the same"/>
+
         <sequential>
             <echo message="comparing '@{string1}' and '@{string2}'"/>
             <condition property="passes" value="true">
                 <equals arg1="@{string1}" arg2="@{string2}"/>
             </condition>
-            
+
             <fail unless="passes" message="@{message}"/>
         </sequential>
     </macrodef>
-        
+
     <!-- ============================================================== -->
     <macrodef name="compare-files">
         <attribute name="file1"/>
         <attribute name="file2"/>
-        
+
         <sequential>
             <CoffeeScript src="test/compare-files.coffee" result="theSame">
                 <arg value="@{file1}"/>
@@ -192,6 +194,6 @@
             </CoffeeScript>
         </sequential>
     </macrodef>
-    
-<!-- ============================================================== -->
+
+    <!-- ============================================================== -->
 </project>

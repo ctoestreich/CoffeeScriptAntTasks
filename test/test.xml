@@ -3,9 +3,11 @@
  * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  -->
 
+
 <project name="test" default="test" basedir="..">
 
-<path id="cp"><pathelement path="bin"/></path>
+<path id="cp"><pathelement path="build/out/csat-0.1.6.jar"/></path>
+
 <taskdef name="JavaScript"    classname="csat.JavaScriptTask"    classpathref="cp"/>
 <taskdef name="CoffeeScript"  classname="csat.CoffeeScriptTask"  classpathref="cp"/>
 <taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCTask" classpathref="cp"/>
@@ -19,27 +21,41 @@
     <antcall target="test-JavaScript-util"/>
     <antcall target="test-CoffeeScript"/>
     <antcall target="test-CoffeeScript-compiler"/>
+    <antcall target="test-CoffeeScript-compiler-nesting"/>
     <antcall target="test-JavaScript-JSON"/>
 
     <delete dir="test/out"/>
 </target>
 
 <!-- ============================================================== -->
-<target name="test-CoffeeScript-compiler">
+<target name="test-CoffeeScript-compiler-nesting">
     <delete dir="test/out"/>
     <mkdir  dir="test/out"/>
 
-    <CoffeeScriptC nowrap="true" destDir="test/out" verbose="true">
-        <include name="test/src/**/*"/>
+    <CoffeeScriptC nowrap="true" destDir="test/out" verbose="true" nesting="true">
+        <fileset dir="test/src" includes="**/*" />
     </CoffeeScriptC>
 
     <compare-files file1="test/expected/test-01.js" file2="test/out/test-01.js"/>
     <compare-files file1="test/expected/test.02.js" file2="test/out/test.02.js"/>
     <compare-files file1="test/expected/test-03.js" file2="test/out/test-03.js"/>
-    <compare-files file1="test/expected/test-04.js" file2="test/out/test-04.js"/>
-    
-    <delete dir="test/out"/>
+    <compare-files file1="test/expected/test-04.js" file2="test/out/sub/test-04.js"/>
 </target>
+
+
+    <target name="test-CoffeeScript-compiler">
+        <delete dir="test/out"/>
+        <mkdir  dir="test/out"/>
+
+        <CoffeeScriptC nowrap="true" destDir="test/out" verbose="true" nesting="false">
+            <fileset dir="test/src" includes="**/*" />
+        </CoffeeScriptC>
+
+        <compare-files file1="test/expected/test-01.js" file2="test/out/test-01.js"/>
+        <compare-files file1="test/expected/test.02.js" file2="test/out/test.02.js"/>
+        <compare-files file1="test/expected/test-03.js" file2="test/out/test-03.js"/>
+        <compare-files file1="test/expected/test-04.js" file2="test/out/test-04.js"/>
+    </target>
 
 <!-- ============================================================== -->
 <target name="test-JavaScript">

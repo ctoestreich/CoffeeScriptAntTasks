@@ -8,7 +8,7 @@
     <!-- ============================================================ -->
     <property file="src/csat/versions.properties"/>
 
-    <property name="COFFEESCRIPT-URL"     value="http://github.com/jashkenas/coffee-script/tarball/${COFFEESCRIPT-VERSION}"/>
+    <property name="COFFEESCRIPT-URL"     value="https://github.com/jashkenas/coffee-script/archive/${COFFEESCRIPT-VERSION}.tar.gz"/>
     
     <target name="get-coffeescript">
         <delete dir="tmp"/>

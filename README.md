@@ -56,12 +56,17 @@ Here's some example CoffeeScript that could be stored in that file:
         
         result
 
-This example compiles CoffeeScript into JavaScript.
+This example compiles CoffeeScript into JavaScript that puts all files at the test/out directory with no .call() wrapper.
 
-        <CoffeeScriptC nowrap="true" destDir="test/out" verbose="true">
-            <include name="test/src/**/*"/>
+        <CoffeeScriptC nowrap="true" destDir="test/out" verbose="true" nesting="false">
+            <fileset dir="test/src" includes="**/*" />
         </CoffeeScriptC>
 
+This example compiles CoffeeScript into JavaScript that puts all files under their child directories test/out/** with no .call() wrapper.
+
+        <CoffeeScriptC nowrap="true" destDir="test/out" verbose="true" nesting="true">
+            <fileset dir="test/src" includes="**/*" />
+        </CoffeeScriptC>
 
 Running
 =======
@@ -149,6 +154,9 @@ The `CoffeeScript` task supports the following attributes:
 
 * `verbose` - prints a message to the console for every file processed.
 
+* `nesting` - will inherit and maintin directory nested directory structure
+ in the fileset base directories.
+
 The `CoffeeScript` task supports the typical "fileSet" sort of
 nested elements, as near as I can tell.  This is how you specify
 input files.  To generate the name of the output file, the path
@@ -215,6 +223,12 @@ MIT license: [http://www.opensource.org/licenses/mit-license.php](http://www.ope
 
 ChangeLog
 =========
+
+0.1.6 - 2012/11/26
+-----------------
+- Updated to CoffeeScript 1.4.0
+- Changed Task for `CoffeeScriptC` to inherit Task instead of MatchingTask so we can
+  add a boolean flag to inherit directory nesting.  The new flag is called `nesting`.
 
 0.1.5 - 2010/08/06
 ------------------

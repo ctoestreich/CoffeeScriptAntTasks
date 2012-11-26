@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="ant">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/ant-1.8.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://C:/apps/Maven/ant-1.8.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

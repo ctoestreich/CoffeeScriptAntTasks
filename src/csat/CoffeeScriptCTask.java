@@ -175,7 +175,7 @@ public class CoffeeScriptCTask extends Task {
         }
 
         if(!destDir.exists()){
-            destDir.mkdir();
+            destDir.mkdirs();
         }
 
         return new File(destDir, baseName + ".js");

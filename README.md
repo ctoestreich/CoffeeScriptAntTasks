@@ -152,10 +152,10 @@ The `CoffeeScript` task supports the following attributes:
   which will cause the function wrapper to be generated.
   (yeah, I hate negative option names too, prolly will change this)
 
-* `verbose` - prints a message to the console for every file processed.
+* `verbose` - prints a message to the console for every file processed. (defaults to true)
 
 * `nesting` - will inherit and maintin directory nested directory structure
- in the fileset base directories.
+ in the fileset base directories.  If set to false will put all files at top level destDir. (defaults to false)
 
 The `CoffeeScript` task supports the typical "fileSet" sort of
 nested elements, as near as I can tell.  This is how you specify
@@ -172,7 +172,7 @@ installation help and version information.
 
         java -jar csat.jar
 
-for usage in Eclipse
+For usage in Eclipse
 --------------------
 
 * Download a <tt>csat-{version}.jar</tt> file from 
@@ -192,10 +192,12 @@ for usage in Eclipse
         <taskdef name="CoffeeScript"  classname="csat.CoffeeScriptTask"  classpathref="cp"/>
         <taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCTask" classpathref="cp"/>
 
-for usage not in Eclipse
+Ffor usage in other IDE
 ------------------------
 
 Pretty much same as the Eclipse instructions, just don't use Eclipse.
+
+* Make sure jar is added to project/global library and also to your module dependency
 
 Building
 ========

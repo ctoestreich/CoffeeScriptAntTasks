@@ -176,6 +176,10 @@ for usage in Eclipse
 --------------------
 
 * Download a <tt>csat-{version}.jar</tt> file from 
+  [https://github.com/ctoestreich/CoffeeScriptAntTasks/tree/master/downloads](https://github.com/ctoestreich/CoffeeScriptAntTasks/tree/master/downloads)
+
+  or from the original source at
+
   [http://github.com/pmuellr/CoffeeScriptAntTasks/downloads](http://github.com/pmuellr/CoffeeScriptAntTasks/downloads)
 
 * Add it to a project in your Eclipse workspace
@@ -230,6 +234,7 @@ ChangeLog
 - Changed Task for `CoffeeScriptC` to inherit Task instead of MatchingTask so we can
   add a boolean flag to inherit directory nesting.  The new flag is called `nesting`.
 - Changed `noWrap` to the new `bare` param for coffee-script compiler.
+- Added download directory containing versioned jars.
 
 0.1.5 - 2010/08/06
 ------------------

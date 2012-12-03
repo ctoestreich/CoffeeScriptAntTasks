@@ -1,7 +1,9 @@
+.idea
 bin
 .settings
-
 tmp
 lib/*
 test/out
 build/out
+out/*
+bundles/*

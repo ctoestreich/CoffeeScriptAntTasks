@@ -27,7 +27,7 @@ public class CoffeeScriptTask extends JavaScriptTask {
         super();
         
         compileOptions = new HashMap<String, Object>();
-        compileOptions.put("noWrap",  true);
+        compileOptions.put("bare",  true);
     }
 
     /**

@@ -31,7 +31,7 @@ public class CoffeeScriptCompiler {
         if (args.length < 1) throw new RuntimeException("argument required (literal CoffeeScript source)");
         
         Map<String,Object> options = new HashMap<String,Object>();
-        options.put("noWrap", true);
+        options.put("bare", true);
         System.out.println(compile(args[0], options));
     }
 

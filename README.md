@@ -56,12 +56,17 @@ Here's some example CoffeeScript that could be stored in that file:
         
         result
 
-This example compiles CoffeeScript into JavaScript.
+This example compiles CoffeeScript into JavaScript that puts all files at the test/out directory with no .call() wrapper.
 
-        <CoffeeScriptC nowrap="true" destDir="test/out" verbose="true">
-            <include name="test/src/**/*"/>
+        <CoffeeScriptC nowrap="true" destDir="test/out" verbose="true" nesting="false">
+            <fileset dir="test/src" includes="**/*" />
         </CoffeeScriptC>
 
+This example compiles CoffeeScript into JavaScript that puts all files under their child directories test/out/** with no .call() wrapper.
+
+        <CoffeeScriptC nowrap="true" destDir="test/out" verbose="true" nesting="true">
+            <fileset dir="test/src" includes="**/*" />
+        </CoffeeScriptC>
 
 Running
 =======
@@ -147,7 +152,10 @@ The `CoffeeScript` task supports the following attributes:
   which will cause the function wrapper to be generated.
   (yeah, I hate negative option names too, prolly will change this)
 
-* `verbose` - prints a message to the console for every file processed.
+* `verbose` - prints a message to the console for every file processed. (defaults to true)
+
+* `nesting` - will inherit and maintin directory nested directory structure
+ in the fileset base directories.  If set to false will put all files at top level destDir. (defaults to false)
 
 The `CoffeeScript` task supports the typical "fileSet" sort of
 nested elements, as near as I can tell.  This is how you specify
@@ -164,10 +172,14 @@ installation help and version information.
 
         java -jar csat.jar
 
-for usage in Eclipse
+For usage in Eclipse
 --------------------
 
 * Download a <tt>csat-{version}.jar</tt> file from 
+  [https://github.com/ctoestreich/CoffeeScriptAntTasks/tree/master/downloads](https://github.com/ctoestreich/CoffeeScriptAntTasks/tree/master/downloads)
+
+  or from the original source at
+
   [http://github.com/pmuellr/CoffeeScriptAntTasks/downloads](http://github.com/pmuellr/CoffeeScriptAntTasks/downloads)
 
 * Add it to a project in your Eclipse workspace
@@ -180,10 +192,12 @@ for usage in Eclipse
         <taskdef name="CoffeeScript"  classname="csat.CoffeeScriptTask"  classpathref="cp"/>
         <taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCTask" classpathref="cp"/>
 
-for usage not in Eclipse
+Ffor usage in other IDE
 ------------------------
 
 Pretty much same as the Eclipse instructions, just don't use Eclipse.
+
+* Make sure jar is added to project/global library and also to your module dependency
 
 Building
 ========
@@ -215,6 +229,14 @@ MIT license: [http://www.opensource.org/licenses/mit-license.php](http://www.ope
 
 ChangeLog
 =========
+
+0.1.6 - 2012/11/26
+-----------------
+- Updated to CoffeeScript 1.4.0
+- Changed Task for `CoffeeScriptC` to inherit Task instead of MatchingTask so we can
+  add a boolean flag to inherit directory nesting.  The new flag is called `nesting`.
+- Changed `noWrap` to the new `bare` param for coffee-script compiler.
+- Added download directory containing versioned jars.
 
 0.1.5 - 2010/08/06
 ------------------

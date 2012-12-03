@@ -5,6 +5,8 @@
 
 <project name="test-no-taskdef" default="test-no-taskdef" basedir="..">
 
+<import file="${basedir}/build/build-jar.xml"/>
+
 <property file="src/csat/versions.properties"/>
 
 <path id="cp"><pathelement path="build/out/csat-${CSAT-VERSION}.jar"/></path>
@@ -13,13 +15,12 @@
 <taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCTask" classpathref="cp"/>
 
 <!-- ============================================================== -->
-<target name="test-no-taskdef">
-    <java fork="true" jar="build/out/csat-${CSAT-VERSION}.jar"/>
-    
-    <CoffeeScript>
+<target name="test-no-taskdef" depends="build-jar.build-jar">
+    <CoffeeScript result="theResult">
         stdout.println "stdout: hello, world!"
         stderr.println "stderr: hello, world!"
     </CoffeeScript>
+
 </target>
 
 <!-- ============================================================== -->

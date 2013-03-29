@@ -35,6 +35,7 @@ public class CoffeeScriptCTask extends Task {
     private boolean nodes;
     private boolean print;
     private boolean showVersion;
+    private boolean overwriteNewer;
 
     /**
      *
@@ -47,6 +48,7 @@ public class CoffeeScriptCTask extends Task {
         nodes = false;
         print = false;
         showVersion = false;
+        overwriteNewer = false;
     }
 
     /**
@@ -105,7 +107,7 @@ public class CoffeeScriptCTask extends Task {
                     throw new BuildException("input and output files the same for " + iFile);
                 }
 
-                if(iFile.lastModified() < oFile.lastModified()) {
+                if(!overwriteNewer && iFile.lastModified() < oFile.lastModified()) {
                     verbose("skipping:  " + iFile + " since it's older than " + oFile);
                     continue;
                 }
@@ -222,6 +224,13 @@ public class CoffeeScriptCTask extends Task {
      */
     public void setDestdir(File value) {
         destDir = value;
+    }
+
+    /**
+    *
+    */
+    public void setOverwriteNewer(boolean value){
+        overwriteNewer = value;
     }
 
     /**

@@ -38,6 +38,10 @@
         </unzip>
 
         <copy todir="tmp/csat">
+            <fileset file="src/csat/versions.properties"/>
+        </copy>
+
+        <copy todir="tmp/csat">
             <fileset file="src/csat/*.js"/>
         </copy>
 

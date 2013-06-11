@@ -1,0 +1,35 @@
+<!-- 
+ * Copyright (c) 2010 Patrick Mueller
+ * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ -->
+
+<project name="get-ant" default="get-ant" basedir="..">
+
+    <!-- ============================================================ -->
+    <property file="src/csat/versions.properties"/>
+
+    <property name="CLI-URL" value="http://www.apache.org/dist/ant/binaries/apache-ant-${ANT-VERSION}-bin.zip" />
+
+    <!-- ============================================================ -->
+
+    <target name="get-ant">
+        <delete dir="tmp"/>
+        <mkdir  dir="tmp"/>
+        
+        <get src="${CLI-URL}" dest="tmp/apache-ant.zip" verbose="true" />
+        
+        <unzip src="tmp/apache-ant.zip" dest="tmp">
+            <patternset>
+                <include name="apache-ant-${ANT-VERSION}/lib/ant.jar"/>
+            </patternset>
+        </unzip>
+        
+        <mkdir  dir="lib" />
+        
+        <copy file="tmp/apache-ant-${ANT-VERSION}/lib/ant.jar" tofile="lib/apache-ant.jar" overwrite="true"/>
+
+        <delete dir="tmp"/>
+    </target>
+
+    <!-- ============================================================ -->
+</project>

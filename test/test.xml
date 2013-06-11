@@ -7,7 +7,7 @@
     <import file="${basedir}/build/build-jar.xml"/>
 
     <path id="cp">
-        <pathelement path="build/out/csat-0.1.6.jar"/>
+        <pathelement path="build/out/csat-${CSAT-VERSION}.jar"/>
     </path>
 
     <taskdef name="JavaScript" classname="csat.JavaScriptTask" classpathref="cp"/>
@@ -23,6 +23,7 @@
         <antcall target="test-JavaScript-util"/>
         <antcall target="test-CoffeeScript"/>
         <antcall target="test-CoffeeScript-compiler"/>
+        <antcall target="test-CoffeeScript-compiler-overwrite"/>
         <antcall target="test-CoffeeScript-compiler-nesting"/>
         <antcall target="test-JavaScript-JSON"/>
 
@@ -57,6 +58,29 @@
         <compare-files file1="test/expected/test.02.js" file2="test/out/test.02.js"/>
         <compare-files file1="test/expected/test-03.js" file2="test/out/test-03.js"/>
         <compare-files file1="test/expected/test-04.js" file2="test/out/test-04.js"/>
+    </target>
+
+    <target name="test-CoffeeScript-compiler-overwrite">
+        <delete dir="test/out/newer"/>
+        <mkdir dir="test/out/newer"/>
+
+        <CoffeeScriptC overwriteNewer="true" nowrap="true" destDir="test/out/newer" verbose="true" nesting="false">
+            <fileset dir="test/src/older" includes="*"/>
+        </CoffeeScriptC>
+
+        <compare-files file1="test/expected/newer/life.js" file2="test/out/newer/life.js"/>
+
+        <CoffeeScriptC overwriteNewer="false" nowrap="true" destDir="test/out/newer" verbose="true" nesting="false">
+            <fileset dir="test/src/newer" includes="life.coffee"/>
+        </CoffeeScriptC>
+
+        <compare-files file1="test/expected/newer/life.js" file2="test/out/newer/life.js"/>
+
+        <CoffeeScriptC overwriteNewer="true" nowrap="true" destDir="test/out/newer" verbose="true" nesting="false">
+            <fileset dir="test/src/newer" includes="life.coffee"/>
+        </CoffeeScriptC>
+
+        <compare-files file1="test/expected/newer/life-overwritten.js" file2="test/out/newer/life.js"/>
     </target>
 
     <!-- ============================================================== -->

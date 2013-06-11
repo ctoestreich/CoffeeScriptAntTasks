@@ -6,9 +6,11 @@ importClass org.apache.tools.ant.BuildException
 
 #---------------------------------------------------------------------
 readFile = (file) ->
+  RegExp reg = new RegExp("i", "g")
   String text = new Scanner(new File(file)).useDelimiter("\\A").next();
-  return text.replaceAll("\\r\\n?", "\n")
-    
+  text = text.replaceAll('\\s$','');
+  return text.replaceAll('(\\r\\n|\\n|\\r)$', '')
+
 #---------------------------------------------------------------------
 file1 = new File(task.project.baseDir, argv[0])
 file2 = new File(task.project.baseDir, argv[1])
@@ -17,4 +19,4 @@ contents1 = readFile file1
 contents2 = readFile file2
 
 if not contents1.equals contents2
-    throw new BuildException "files do not match: " + file1 + ", " + file2
+  throw new BuildException "files do not match: " + file1 + ", " + file2

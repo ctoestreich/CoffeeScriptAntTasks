@@ -157,6 +157,8 @@ The `CoffeeScript` task supports the following attributes:
 * `nesting` - will inherit and maintin directory nested directory structure
  in the fileset base directories.  If set to false will put all files at top level destDir. (defaults to false)
 
+* `overwriteNewer` - boolean to force overwrite if js is newer than coffee. (defaults to false)
+
 The `CoffeeScript` task supports the typical "fileSet" sort of
 nested elements, as near as I can tell.  This is how you specify
 input files.  To generate the name of the output file, the path

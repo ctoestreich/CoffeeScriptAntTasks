@@ -19,28 +19,15 @@
         <untar src="tmp/coffee-script.tar.gz" dest="tmp" compression="gzip">
             <mapper type="flatten"/>
             <patternset>
-                <!-- the list of scripts is in CoffeeScript's Rake file -->
-                <include name="**/lib/helpers.js"/>
-                <include name="**/lib/rewriter.js"/>
-                <include name="**/lib/lexer.js"/>
-                <include name="**/lib/parser.js"/>
-                <include name="**/lib/scope.js"/>
-                <include name="**/lib/nodes.js"/>
-                <include name="**/lib/coffee-script.js"/>                
+                <include name="**/extras/coffee-script.js"/>
             </patternset>
         </untar>
         
         <concat destfile="src/csat/coffee-script.js">
-            <fileset file="tmp/helpers.js"/>
-            <fileset file="tmp/rewriter.js"/>
-            <fileset file="tmp/lexer.js"/>
-            <fileset file="tmp/parser.js"/>
-            <fileset file="tmp/scope.js"/>
-            <fileset file="tmp/nodes.js"/>
-            <fileset file="tmp/coffee-script.js"/>                
+            <fileset file="tmp/*.js"/>
         </concat>
         
-        <delete dir="tmp"/>
+        <!--<delete dir="tmp"/>-->
     </target>
 
     <!-- ============================================================ -->

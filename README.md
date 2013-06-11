@@ -6,6 +6,8 @@ This project contains Ant tasks to run
 from Ant, and compile CoffeeScript files to JavaScript.  
 It uses Rhino as the underlying JavaScript engine.
 
+Grab latest files from here [Downloads](https://github.com/ctoestreich/CoffeeScriptAntTasks/tree/master/downloads)
+
 Examples
 ========
 

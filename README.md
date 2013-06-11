@@ -232,6 +232,12 @@ MIT license: [http://www.opensource.org/licenses/mit-license.php](http://www.ope
 ChangeLog
 =========
 
+0.1.7 - 2013/06/11
+-----------------
+- Updated to CoffeeScript 1.6.3
+- Adding flag for `overwriteNewer` - boolean to force overwrite if js is newer than coffee. (defaults to false)
+- Adding ant tests for overwrite
+
 0.1.6 - 2012/11/26
 -----------------
 - Updated to CoffeeScript 1.4.0

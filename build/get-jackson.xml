@@ -1,0 +1,38 @@
+<!-- 
+ * Copyright (c) 2010 Patrick Mueller
+ * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ -->
+
+<project name="get-jackson" default="get-jackson" basedir="..">
+
+    <!-- ============================================================ -->
+    <property file="src/csat/versions.properties"/>
+    
+    <property name="JACKSON-CORE-URL" value="http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/${JACKSON-VERSION}/jackson-core-${JACKSON-VERSION}.jar"/>
+    <property name="JACKSON-DATABIND-URL" value="http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/${JACKSON-VERSION}/jackson-databind-${JACKSON-VERSION}.jar"/>
+    <property name="JACKSON-ANNOTATION-URL" value="http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/${JACKSON-VERSION}/jackson-annotations-${JACKSON-VERSION}.jar"/>
+
+    <!-- ============================================================ -->
+
+    <target name="get-jackson">
+        <delete dir="tmp"/>
+        <mkdir  dir="tmp"/>
+        
+        <get src="${JACKSON-CORE-URL}" dest="tmp/jackson-core.jar" verbose="true" />
+        <get src="${JACKSON-DATABIND-URL}" dest="tmp/jackson-databind.jar" verbose="true" />
+        <get src="${JACKSON-ANNOTATION-URL}" dest="tmp/jackson-annotation.jar" verbose="true" />
+
+        <mkdir  dir="lib"/>
+        <delete file="lib/jackson-core.jar"/>
+        <delete file="lib/jackson-databind.jar"/>
+        <delete file="lib/jackson-annotation.jar"/>
+
+        <copy file="tmp/jackson-core.jar" tofile="lib/jackson-core.jar" overwrite="true"/>
+        <copy file="tmp/jackson-databind.jar" tofile="lib/jackson-databind.jar" overwrite="true"/>
+        <copy file="tmp/jackson-annotation.jar" tofile="lib/jackson-annotation.jar" overwrite="true"/>
+
+        <delete dir="tmp"/>
+    </target>
+
+    <!-- ============================================================ -->
+</project>

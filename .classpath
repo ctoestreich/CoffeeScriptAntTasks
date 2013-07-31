@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="lib/rhino.jar" sourcepath="lib/rhino-src.zip"/>
-	<classpathentry kind="lib" path="lib/apache-commons-cli.jar" sourcepath="lib/apache-commons-cli-src.zip"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ant-antunit-1.2"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ant-testutil-1.9.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/apache-ant"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/apache-commons-cli"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/csat-0.1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jackson"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/junit4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/rhino"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -7,12 +7,31 @@
     <import file="${basedir}/build/build-jar.xml"/>
 
     <path id="cp">
-        <pathelement path="build/out/csat-${CSAT-VERSION}.jar"/>
+        <pathelement path="downloads/csat-${CSAT-VERSION}.jar"/>
     </path>
 
     <taskdef name="JavaScript" classname="csat.JavaScriptTask" classpathref="cp"/>
     <taskdef name="CoffeeScript" classname="csat.CoffeeScriptTask" classpathref="cp"/>
     <taskdef name="CoffeeScriptC" classname="csat.CoffeeScriptCTask" classpathref="cp"/>
+    <taskdef name="CoffeeScriptLint" classname="csat.CoffeeScriptLintTask" classpathref="cp"/>
+
+    <target name="test-CoffeeScriptLint-bad">
+        <CoffeeScriptLint configFile="test/coffeelint.json" failOnLint="false" verbose="true" nesting="true">
+            <fileset dir="test/src" includes="**/*"/>
+        </CoffeeScriptLint>
+    </target>
+
+    <target name="test-CoffeeScriptLint-good">
+        <CoffeeScriptLint configFile="test/coffeelint.json" failOnLint="false" verbose="true" nesting="true">
+            <fileset dir="test/src/older" includes="*"/>
+        </CoffeeScriptLint>
+    </target>
+
+    <target name="test-CoffeeScriptLint-exception">
+        <CoffeeScriptLint configFile="test/coffeelint.json" failOnLint="true" verbose="true" nesting="true">
+            <fileset dir="test/src" includes="**/*"/>
+        </CoffeeScriptLint>
+    </target>
 
     <!-- ============================================================== -->
     <target name="test" depends="build-jar.build-jar">

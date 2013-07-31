@@ -24,6 +24,15 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="ant-antunit-1.2" level="project" />
+    <orderEntry type="library" name="ant-launcher-1.9.1" level="project" />
+    <orderEntry type="library" name="ant-testutil-1.9.1" level="project" />
+    <orderEntry type="library" name="apache-ant" level="project" />
+    <orderEntry type="library" name="apache-commons-cli" level="project" />
+    <orderEntry type="library" name="csat-0.1.8" level="project" />
+    <orderEntry type="library" name="jackson" level="project" />
+    <orderEntry type="library" name="junit4" level="project" />
+    <orderEntry type="library" name="rhino" level="project" />
   </component>
 </module>
 

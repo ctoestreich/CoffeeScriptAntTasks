@@ -1,0 +1,20 @@
+{
+    "indentation": {
+        "level": "error",
+        "value": 4
+    },
+    "cyclomatic_complexity": {
+        "level": "warn",
+        "value": 11
+    },
+    "line_endings": {
+        "value": "unix",
+        "level": "error"
+    },
+    "space_operators": {
+        "level": "error"
+    },
+    "no_backticks": {
+        "level": "error"
+    }
+}

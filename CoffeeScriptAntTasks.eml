@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<output-test url="file://$MODULE_DIR$/bin"/>
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<levels>
+		<level name="ant-antunit-1.2" value="project"/>
+		<level name="ant-testutil-1.9.1" value="project"/>
+		<level name="apache-ant" value="project"/>
+		<level name="apache-commons-cli" value="project"/>
+		<level name="csat-0.1.8" value="project"/>
+		<level name="jackson" value="project"/>
+		<level name="junit4" value="project"/>
+		<level name="rhino" value="project"/>
+	</levels>
+</component>

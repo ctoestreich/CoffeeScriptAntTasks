@@ -31,11 +31,11 @@
                classpathref="path.classpath"
                 />
 
-        <unzip src="lib/rhino.jar" dest="tmp">
-        </unzip>
-        
-        <unzip src="lib/apache-commons-cli.jar" dest="tmp">
-        </unzip>
+        <unzip src="lib/rhino.jar" dest="tmp"></unzip>
+        <unzip src="lib/apache-commons-cli.jar" dest="tmp"></unzip>
+        <unzip src="lib/jackson-core.jar" dest="tmp"></unzip>
+        <unzip src="lib/jackson-databind.jar" dest="tmp"></unzip>
+        <unzip src="lib/jackson-annotation.jar" dest="tmp"></unzip>
 
         <copy todir="tmp/csat">
             <fileset file="src/csat/versions.properties"/>

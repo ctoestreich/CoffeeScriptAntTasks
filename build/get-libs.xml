@@ -13,6 +13,7 @@
         <ant antfile="build/get-cli.xml"/>
         <ant antfile="build/get-rhino.xml"/>
         <ant antfile="build/get-ant.xml"/>
+        <ant antfile="build/get-jackson.xml"/>
         <ant antfile="build/get-coffeescript.xml"/>
     </target>
 </project>
